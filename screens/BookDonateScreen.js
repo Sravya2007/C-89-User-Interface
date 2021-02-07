@@ -41,7 +41,11 @@ export default class BookDonateScreen extends React.Component {
                     <ListItem.Title style = {{ color: 'black', fontWeight: 'bold' }}>{item.book_name}</ListItem.Title>
                     <ListItem.Subtitle>{item.reason_to_request}</ListItem.Subtitle>
                 </ListItem.Content>
-                <TouchableOpacity style = {styles.button}>
+                <TouchableOpacity
+                style = {styles.button}
+                onPress ={()=>{
+                    this.props.navigation.navigate("RecieverDetails",{"details": item})
+                }}>
                     <Text style = {{color:'#ffff'}}>View</Text>
                 </TouchableOpacity>
           </ListItem>

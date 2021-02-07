@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "C-80-Logout-and-Side-Drawer",
-    "slug": "C-80-Logout-and-Side-Drawer",
+    "name": "C-82-Stack-Navigation",
+    "slug": "C-82-Stack-Navigation",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
