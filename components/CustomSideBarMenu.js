@@ -17,7 +17,7 @@ export default class CustomSideBarMenu extends Component{
               this.props.navigation.navigate('WelcomeScreen')
               firebase.auth().signOut()
           }}>
-            <Text>Log Out</Text>
+            <Text style = {styles.logOutText}>Log Out</Text>
           </TouchableOpacity>
         </View>
       </View>

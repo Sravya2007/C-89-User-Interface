@@ -28,9 +28,9 @@ export default class BookDonateScreen extends React.Component {
         this.getRequestedBooksList()
     }
 
-    componentWillUnmount() {
+    /*componentWillUnmount() {
         this.requestRef();
-    }
+    }*/
 
     keyExtractor = (item, index) => index.toString()
 

@@ -10,6 +10,7 @@ export default class RecieverDetailsScreen extends Component{
   constructor(props){
     super(props);
     this.state={
+      userName: "",
       userId          : firebase.auth().currentUser.email,
       recieverId      : this.props.navigation.getParam('details')["user_id"],
       requestId       : this.props.navigation.getParam('details')["request_id"],
@@ -22,7 +23,18 @@ export default class RecieverDetailsScreen extends Component{
     }
   }
 
-
+  addNotification=()=>{
+    var message = this.state.userName + " has shown interest in donating the book"
+    db.collection("all_notifications").add({
+      "targeted_user_id" : this.state.recieverId,
+      "donor_id" : this.state.userId,
+      "request_id" : this.state.requestId,
+      "book_name" : this.state.bookName,
+      "date" : firebase.firestore.FieldValue.serverTimestamp(),
+      "notification_status" : "unread",
+      "message" : message
+    })
+  }
 
 getRecieverDetails(){
   db.collection('users').where('email_id','==',this.state.recieverId).get()
@@ -41,7 +53,21 @@ getRecieverDetails(){
     snapshot.forEach(doc => {
       this.setState({recieverRequestDocId:doc.id})
    })
-})}
+  })
+}
+
+
+
+getUserDetails=(userId)=>{
+  db.collection("users").where('email_id','==', userId).get()
+  .then((snapshot)=>{
+    snapshot.forEach((doc) => {
+      this.setState({
+        userName :doc.data().first_name + " " + doc.data().last_name
+      })
+    })
+  })
+}
 
 updateBookStatus=()=>{
   db.collection('all_donations').add({
@@ -56,7 +82,8 @@ updateBookStatus=()=>{
 
 
 componentDidMount(){
-  this.getRecieverDetails()
+  this.getRecieverDetails();
+  this.getUserDetails(this.state.userId)
 }
 
 
@@ -107,6 +134,7 @@ componentDidMount(){
                   style={styles.button}
                   onPress={()=>{
                     this.updateBookStatus()
+                    this.addNotification()
                     this.props.navigation.navigate('MyDonations')
                   }}>
                 <Text>I want to Donate</Text>
