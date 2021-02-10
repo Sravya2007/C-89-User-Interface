@@ -25,7 +25,6 @@ componentDidMount(){
   this.getNumberOfUnreadNotifications()
 }
 
-
  BellIconWithBadge=()=>{
     return(
       <View>
@@ -49,5 +48,4 @@ componentDidMount(){
 
 )
 }
-
 }
