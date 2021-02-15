@@ -102,8 +102,9 @@ export default class CustomSideBarMenu extends Component {
             size="medium"
             onPress={() => this.selectPicture()}
             containerStyle={styles.imageContainer}
-            showEditButton
-          />
+            overlayContainerStyle={{backgroundColor: '#BDBDBD'}}>
+              <Avatar.Accessory size = {50}/>
+            </Avatar>
 
           <Text style={{ fontWeight: "100", fontSize: 20, paddingTop: 10 }}>
             {this.state.name}
