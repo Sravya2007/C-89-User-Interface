@@ -56,11 +56,6 @@ export default class BookRequestScreen extends React.Component {
         })
     }
 
-    componentDidMount() {
-        this.getBookRequest();
-        this.getIsBookRequestActive();
-    }
-
     addRequest = async(bookName, reasonToRequest) =>{
         var userId = this.state.userId
         var randomRequestId = this.createUniqueId()
