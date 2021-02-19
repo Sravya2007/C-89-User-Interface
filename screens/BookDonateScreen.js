@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
 import db from '../config';
 import firebase from 'firebase';
 import MyHeader from '../components/MyHeader';
@@ -37,6 +37,12 @@ export default class BookDonateScreen extends React.Component {
     renderItem = ( {item, i} ) =>{
         return (
             <ListItem key = {i} bottomDivider>
+                    <Image
+                    style = {{
+                        height: 50,
+                        width: 50
+                    }}
+                    source = {{uri: item.image_link}}/>
                 <ListItem.Content>
                     <ListItem.Title style = {{ color: 'black', fontWeight: 'bold' }}>{item.book_name}</ListItem.Title>
                     <ListItem.Subtitle>{item.reason_to_request}</ListItem.Subtitle>
