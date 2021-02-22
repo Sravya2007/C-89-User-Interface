@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert, ScrollView, FlatList, Image } from 'react-native';
 import db from '../config';
 import firebase from 'firebase';
 import MyHeader from '../components/MyHeader';
 import { ListItem } from 'react-native-elements';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 export default class MyRecievedBooks extends React.Component {
     constructor() {
@@ -49,6 +50,12 @@ export default class MyRecievedBooks extends React.Component {
         }}
         bottomDivider />*/
         <ListItem key = {i} bottomDivider>
+            <Image
+            style={styles.LiImage}
+            source={{
+              uri: item.image_link,
+            }}
+            />
             <ListItem.Content>
                 <ListItem.Title style = {{color: 'black', fontWeight: 'bold'}}>{item.book_name}</ListItem.Title>
                 <ListItem.Subtitle>{item.book_status}</ListItem.Subtitle>
@@ -59,34 +66,38 @@ export default class MyRecievedBooks extends React.Component {
 
     render(){
         return(
-        <View style={{flex:1}}>
+          <View style={{flex:1}}>
             <MyHeader title="Received Books" navigation ={this.props.navigation}/>
             <View style={{flex:1}}>
-            { this.state.receivedBooksList.length === 0 ?(
-            <View style={styles.subContainer}>
-                <Text style={{ fontSize: 20}}>List Of All Received Books</Text>
+              {
+                this.state.receivedBooksList.length === 0
+                ?(
+                  <View style={styles.subContainer}>
+                    <Text style={{ fontSize: 20}}>List Of All Received Books</Text>
+                  </View>
+                )
+                :(
+                  <FlatList
+                    keyExtractor={this.keyExtractor}
+                    data={this.state.receivedBooksList}
+                    renderItem={this.renderItem}
+                  />
+                )
+              }
             </View>
-            )
-            :(
-            <FlatList
-            keyExtractor={this.keyExtractor}
-            data={this.state.receivedBooksList}
-            renderItem={this.renderItem} />
-            )}
-            </View>
-        </View>
+          </View>
         )
+      }
     }
-}
-
-const styles = StyleSheet.create({
-    subContainer:{
+    
+    const styles = StyleSheet.create({
+      subContainer:{
         flex:1,
         fontSize: 20,
         justifyContent:'center',
         alignItems:'center'
-    },
-    button:{
+      },
+      button:{
         width:100,
         height:30,
         justifyContent:'center',
@@ -94,8 +105,18 @@ const styles = StyleSheet.create({
         backgroundColor:"#ff5722",
         shadowColor: "#000",
         shadowOffset: {
-            width: 0,
-            height: 8
-        }
-    }
-})
+           width: 0,
+           height: 8
+         }
+      },
+      LiImage:{
+        height:RFValue(50),
+        width:RFValue(50)
+      },
+      titlestyle:
+      {
+      color: 'black',
+      fontWeight: 'bold'
+    },
+    
+    })

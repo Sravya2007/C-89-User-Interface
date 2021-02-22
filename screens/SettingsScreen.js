@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import db from '../config';
 import firebase from 'firebase';
+import {RFValue} from 'react-native-responsive-fontsize';
 import MyHeader from '../components/MyHeader';
 
 export default class SettingsScreen extends React.Component {
@@ -52,119 +53,142 @@ export default class SettingsScreen extends React.Component {
     }
 
     render() {
-        return(
-            <View style = {styles.container}>
-                <MyHeader title = "Settings" navigation = {this.props.navigation}/>
-                <View style = {styles.formContainer}>
-                    <TextInput
-                    style = {styles.formTextInput}
-                    placeholder = {"First Name"}
-                    maxLength = {8}
-                    onChangeText = {(text) =>{
-                        this.setState({
-                            firstName: text
-                        })
+        return (
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 0.12 }}>
+              <MyHeader title="Settings" navigation={this.props.navigation} />
+            </View>
+    
+    
+            <View style={styles.formContainer}>
+                <View
+                  style={{
+                    flex: 0.66,
+                    padding: RFValue(10),
+                  }}
+                >
+                <Text style={styles.label}>First Name </Text>
+                  <TextInput
+                    style={styles.formTextInput}
+                    placeholder={"First Name"}
+                    maxLength={12}
+                    onChangeText={(text) => {
+                      this.setState({
+                        firstName: text,
+                      });
                     }}
-                    value = {this.state.firstName}/>
-
-                    <TextInput
-                    style = {styles.formTextInput}
-                    placeholder = {"Last Name"}
-                    maxLength = {15}
-                    onChangeText = {(text) =>{
-                        this.setState({
-                            lastName: text
-                        })
+                    value={this.state.firstName}
+                  />
+    
+                <Text style={styles.label}>Last Name </Text>
+                  <TextInput
+                    style={styles.formTextInput}
+                    placeholder={"Last Name"}
+                    maxLength={12}
+                    onChangeText={(text) => {
+                      this.setState({
+                        lastName: text,
+                      });
                     }}
-                    value = {this.state.lastName}/>
-
-                    <TextInput
-                    style = {styles.formTextInput}
-                    placeholder = {"Contact"}
-                    maxLength = {10}
-                    keyboardType = "numeric"
-                    onChangeText = {(text) =>{
-                        this.setState({
-                            contact: text
-                        })
+                    value={this.state.lastName}
+                  />
+    
+                    <Text style={styles.label}>Contact </Text>
+                  <TextInput
+                    style={styles.formTextInput}
+                    placeholder={"Contact"}
+                    maxLength={10}
+                    keyboardType={"numeric"}
+                    onChangeText={(text) => {
+                      this.setState({
+                        contact: text,
+                      });
                     }}
-                    value = {this.state.contact}/>
-
-                    <TextInput
-                    style = {styles.formTextInput}
-                    placeholder = {"Address"}
-                    multiline = {true}
-                    onChangeText = {(text) =>{
-                        this.setState({
-                            address: text
-                        })
+                    value={this.state.contact}
+                  />
+    
+                    <Text style={styles.label}>Address </Text>
+                  <TextInput
+                    style={styles.formTextInput}
+                    placeholder={"Address"}
+                    multiline={true}
+                    onChangeText={(text) => {
+                      this.setState({
+                        address: text,
+                      });
                     }}
-                    value = {this.state.address}/>
-
-                    <TextInput
-                    style = {styles.formTextInput}
-                    placeholder = {"Email ID"}
-                    keyboardType = "email-address"
-                    onChangeText = {(text) =>{
-                        this.setState({
-                            emailId: text
-                        })
-                    }}
-                    value = {this.state.emailId}/>
-                    
-                    <TouchableOpacity style = {styles.button}
-                    onPress = {() => {
-                        this.updateUserDetails()
-                    }}>
-                        <Text style = {styles.buttonText}>Save</Text>
+                    value={this.state.address}
+                  />
+                </View>
+                  <View style={styles.buttonView}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() => {
+                        this.updateUserDetails();
+                      }}
+                    >
+                      <Text style={styles.buttonText}>Save</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+              </View>
+          </View>
         );
+      }
     }
-}
-
-const styles = StyleSheet.create({
-        container: {
-            flex:1,
-            alignItems: 'center',
-            justifyContent: 'center'
+    
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor:"#6fc0b8"
+      },
+      formContainer:{
+        flex: 0.88,
+        justifyContent:'center'
+      },
+      label:{
+        fontSize:RFValue(18),
+        color:"#717D7E",
+        fontWeight:'bold',
+        padding:RFValue(10),
+        marginLeft:RFValue(20)
+      },
+      formTextInput: {
+        width: "90%",
+        height: RFValue(50),
+        padding: RFValue(10),
+        borderWidth:1,
+        borderRadius:2,
+        borderColor:"grey",
+        marginBottom:RFValue(20),
+        marginLeft:RFValue(20)
+      },
+      button: {
+        width: "75%",
+        height: RFValue(60),
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: RFValue(50),
+        backgroundColor: "#32867d",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 8,
         },
-        formContainer: {
-            flex:1,
-            width:'100%',
-            alignItems: 'center'
-        },
-        formTextInput: {
-            width:"75%",
-            height:35,
-            alignSelf:'center',
-            borderColor:'#ffab91',
-            borderRadius:10,
-            borderWidth:1,
-            marginTop:20,
-            padding:10
-        },
-        button: {
-            width:"75%",
-            height:50,
-            justifyContent:'center',
-            alignItems:'center',
-            borderRadius:10,
-            backgroundColor:"#ff5722",
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 8
-            },
-            shadowOpacity: 0.44,
-            shadowRadius: 10.32,
-            elevation: 16,
-            marginTop:20
-        },
-        buttonText: {
-            fontSize:25,
-            fontWeight:"bold",
-            color:"#fff"
-        }
-})
+        shadowOpacity: 0.44,
+        shadowRadius: 10.32,
+        elevation: 16,
+        marginTop: RFValue(20),
+      },
+      buttonView:{
+        flex: 0.22,
+        alignItems: "center",
+        marginTop:RFValue(100)
+    },
+      buttonText: {
+        fontSize: RFValue(23),
+        fontWeight: "bold",
+        color: "#fff",
+      },
+    });
